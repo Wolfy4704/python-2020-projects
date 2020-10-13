@@ -21,7 +21,7 @@ else:
     max_range = 100
     trys = 10
 the_number = random.randint(1,max_range)
-print(the_number) #remove when done
+##print(the_number) #remove when done
 
 print("\nI'm thinking of a number between 1 and "+str(max_range)+".")
 print("Try to guess it in "+str(trys)+" attemps.\n")
@@ -149,3 +149,4 @@ if winner == True:
     print("you are a winner")
 else:
     print("you are a looser the number was "+str(the_number)+".\n")
+input()

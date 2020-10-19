@@ -77,7 +77,7 @@ HANGMAN = (
 --------------------------
 """)
 MAX_WRONG = len(HANGMAN)-1
-WORDS = ("OVERUSED","CLAM","GUAM","COOKIE","PYTHON")
+WORDS = ("CONSTRICTING","CLAM","GUAM","COOKIE","PYTHON")
 word = random.choice(WORDS)
 #assignment
 #10 python related word with one refering to the snake

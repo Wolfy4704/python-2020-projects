@@ -89,8 +89,8 @@ Opening()
 input()
 
 def menu():
-  choice = input("""  'c:looddoocc:.'l;                                 .;loooooo:.                                                                           'c:lodddooc::.                                  .:l.          
-  'oc;,:xo,,:oc..lc                                'dl;,,,,,,cdc.                                                                         ,oc;,:xo,,:oc.                                   'o;          
+    print("""  'c:looddoocc:.'l;                                 .;loooooo:.                                                                           'c:lodddooc::.                                  .:l.          
+      'oc;,:xo,,:oc..lc                                'dl;,,,,,,cdc.                                                                         ,oc;,:xo,,:oc.                                   'o;          
        .oc       :c                                :l.        ;l.                                                                              .oc                                   ..    .l;          
        ;xo.      :o,.....     ........            .od'       .ld, ........'..   ..'...'.     ......,:c,    ..'.....   ..........               ;xo.     ..........    ....'...      .;.    .l;          
        .l:       cxc,,,;cc.  ;l:,,,,;lc.          .ld'       .cd, .:ll:;,,;l:. ,l:;,,,;cc.  ;dc;,,;;:ld'  ,l:,,,,;cc. .:ll;,,;:l,              .l;      .:ll;,,,:o;  .;;;;,,;lc.    ,d:    .l;          
@@ -104,8 +104,93 @@ def menu():
          ...',;;;,,''..........................................''..............................',,'................................'..........................................'',,;;;;,....             
               ...                                      .......... .......'...........'.......................'...................   ........                                      ...                   
                                                          ................             .....   ........  .....             ................                                                              
-                                                                                         ......    .......                                                                                              
+                                                                                         ......    .......      """       )                                                                                 
                                                                                                                                                                                                         
-							You may:
-              
+    options = [   "Travel the trail", "Learn about the trail","Quit Game"]
+    while True:
+        choice = menu_display(options)
+        if choice== 1:
+            break
+        if choice== 2:
+            learn()
+        if choice== 3:
+           quit()
+    play()
+    
+        
+def  menu_display(options):
+    index = 1
+    for option in options:
+        print(str.format("{}. {}",index,option))
+        index+=1
+
+    while True:
+        x = input("enter a number between 1 and "+ str(len(options)))
+        if x.isnumeric():
+            x=int(x)
+            if x >= 1 and x<=len(options):
+                return x
+            else:
+                print("not a good choice")
+        else:
+            print("not a good choice")
+                      
+
+
+def learn():
+    learntext=["""try taking a journey by
+    covered wagon across 2000
+    miles of plains, rivers, and
+    mountains. Try! on the
+    plains, will you slosh your
+    oxen through mud and
+    water-filled ruts or will you
+    plod through dust six inches deep?""",
+               """how will you cross the river?
+    if you have money, you might
+    take a ferry (if there is a
+    ferry). or, you can ford the
+    river and hope you and your
+    wagon arent swallowed alive!""",
+               """What about the supples? well, if
+    you're low on food you can
+    hunt. you might get a buffalo...
+    you might. and there are
+    bears in the mountains""",
+               """At the dalles, you can try 
+    navigating the columbia river,
+    but if running the rapids with
+    a makeshift raft makes you
+    pueasy, better take the barlow
+    road.""",
+               """if for some reason you dont
+    survive -- your wagon burns,
+    or thieves steal your oxen, or
+    you run out of provisions, or
+    you die of cholera -- dont
+    give up! try again... and
+    again... until your name is up
+    with the other on the oregon top ten.""",
+               """You may turn the sound on or
+    off during the program by
+    pressing Control-S""",
+               """You may want to puit in the
+    middle of the program. if so,
+    press the escape (ESC) key
+    twice whenever the computer is
+    waiting for a responce.""",
+               """The software team responsible
+    for creation of this product includes:
+     Kian Johnson, Brayden Woodard"""]
+    for text in learntext:
+        print(text)
+        input()
+        
+        
+
+#game starts
+Opening()   
+menu()       
+  
+
 

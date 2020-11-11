@@ -186,8 +186,7 @@ def learn():
         print(text)
         input()
         
-def create_char():
-    
+        
 
 #game starts
 Opening()   

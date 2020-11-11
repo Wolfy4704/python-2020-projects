@@ -1,0 +1,8 @@
+yoke = 2 ox 1-9 recommended is 3
+food 1-2,000 reccomended is 200 per person 0.20
+clothes 1-99 reccomended is 2 sets per person 10.00
+ammunition boxes = 20 bullets 1-99 2.00
+spare parts = 
+wagon wheel 0-3 
+wagon axle 
+wagon tongue 

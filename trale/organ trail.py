@@ -186,12 +186,37 @@ def learn():
         print(text)
         input()
         
-def create_char():
-    
+        
+def getname():
+    while True:
+        name=input(question)
+        if name.isnumeric() ==False:
+            if len(name)>=1:
+                return name
+            print("not a good name")
 
+
+
+def getnumber(question,low,high):
+    while True:
+        number=input(question)
+        if number.isnumeric():
+            number=int(number)
+            if number >=low and number <=high:
+                return number
+            print("not a good number")
+
+            
+            
+def familysetup():
+  
+
+def char_create():
+    
 #game starts
 Opening()   
 menu()       
   
+
 
 

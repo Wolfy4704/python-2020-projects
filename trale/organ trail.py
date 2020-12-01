@@ -205,14 +205,186 @@ def getnumber(question,low,high):
             if number >=low and number <=high:
                 return number
             print("not a good number")
-
-            
-            
-def familysetup():
   
+def familysetup():
+  wagonleader=getname(question)
+  
+x = getnumber("testing",2,5)
+print(x)
+getname(question)
+print(name)
 
-def char_create():
+#the shopping system for the use to buy things for there journey   
+def shop(money):
+    ammo = 0
+    food = 0
+    clothes = 0
+    ox = 0
+    parts = []
+    bill = 0
+    items = ["Oxen", "food", "ammo",
+             "clothes", "waggon parts",
+             "check out"]
+    spent_on_items = [0.00,0.00,0.00,0.00,0.00,bill]
+    print("before leaving independence you should buy equipment and supplies.")
+    print(str.format("you have{} in cash to make this trip",money))
+    print("remember you can buy supplies along the way so you dont have to spend it all now")
+    print()
+    print()
+    input("press any key to continue")
+    while True:
+        spent_on_items[len(spent_on_items)-1] = bill
+        print("welcome to the generel shop")
+        print("here is a list of things you can buy")
+        print()
+        print("============================================")
+        for i in range(len(items)):
+            print(str.format("\t{}:    {:20}    ${:.2f}",i+1,items[i],spent_on_items[i]))
+        print("============================================")
+        print()
+        print(str.format("total bill so far:      ${:.2f}",bill))
+        print(str.format("total funds avalable:   ${:.2f}",money-bill))
+        choice = int(input("what do you want to buy"))#use get_number function not input
+        if choice == 1:
+            print("""
+            there are 2 oxen in a yoke;
+            i recomend at least 3 yokes.
+            i charge $40 a yoke""")
+            print(str.format("total bill so far:        ${:.2f}",bill))
+            answer = int(input("how many yoke do you want"))
+            cost = answer*40
+            bill += cost
+            ox = answer * 2
+            spent_on_items[0] = cost
+            
+        if choice == 2:
+            print("""
+            i recomend 200 pounds of food
+            pure person.
+            i charge .20 a pound""")
+            print(str.format("total bill so far:       ${:.2f}",bill))
+            answer = int(input("how much food do you want"))
+            cost = answer*.2
+            bill += cost
+            food = answer * 1
+            spent_on_items[1] = cost
+            
+        if choice == 3:
+            print("""
+            1 box equals 20 bullets.
+            1 box is 2.00 a box""")
+            print(str.format("total bill so far:       ${:.2f}",bill))
+            answer = int(input("how much boxes of ammo would you like"))
+            cost = answer*2.00
+            bill += cost
+            ammo = answer * 1
+            spent_on_items[2] = cost
+            
+        if choice == 4:
+            print("""
+            1 set of clothes is 10.00.
+            i recomend 2 sets a person""")
+            print(str.format("total bill so far:       ${:.2f}",bill))
+            answer = int(input("how much clothing do you want"))
+            cost = answer*10.00
+            bill += cost
+            clothes = answer * 1
+            spent_on_items[3] = cost
+        if choice == 5:
+            inventory = []
+            print("""
+            it is a good idea to have a few
+            spare parts for your wagon on hand
+            you never know what can happen on
+            the trail and a broken down
+            wagon can be a death sentance.""")
+            parts_bill = 0.00
+            parts = ["wagon wheel", "wagon axle","wagon tongue","back to main shop"]
+            parts_cost =[10.00,20.00,50.00,parts_bill]
+            while True:
+                parts_cost[len(parts_cost)-1] = parts_bill
+                print("here is a list of things you can buy")
+                for i in range(len(parts)):
+                     print(str.format("{}.   {:20}     ${:.2f}",i+1,parts[i],parts_cost[i]))
+                print(str.format("Total bill so far:        ${:.2f}",bill))
+                print(str.format("total funds avalable:     ${:.2f}",money))
+                item = int(input("What Item would you like to buy"))
+                if item == 1:
+                    answer = int(input("how many wagon Wheels do you want?"))
+                    for i in range(answer):
+                        inventory.append("Wagon Wheel")
+                    parts_bill += parts_cost[0] * answer
+                elif item == 2:
+                    answer = int(input("how many Wagon axles do you want?"))
+                    for i in range(answer):
+                        inventory.append("Wagon axle")
+                    parts_bill += parts_cost[1]*answer
+
+                elif item == 3:
+                    answer = int(input("how many Wagon Tongues do you want?"))
+                    for i in range(answer):
+                        inventory.append("wagon tongue")
+                    parts_bill += parts_cost[2]*answer
+                elif item == 4:
+                    bill +=parts_bill
+                    spent_on_items[4] = parts_bill
+                    break
+                
+                        
+                                      
+                
+        if choice == 6:
+            if bill <= money:
+                money -= bill
+                return ox, food,clothes,inventory
+            else:
+                print("you dont have that much money alter your shoping list")
+
+money=1000
+food = 0
+ammo = 0
+cloths = 0
+parts = []
+ox = 0
+shop(money)
+
+def travel (health, pace, weather):
+    import random
+    mph = 0
+    weather_mod = 0
+    hours = 0
+
     
+    if pace == "normal":
+        mph = 2
+    elif pace == "slow":
+        mph = 1
+    elif pace == "fast":
+        mph = 4
+
+    if health == "bad":
+        hours = 4
+    elif health == "good":
+        hours = 8
+    elif health == "decent":
+        hours = 6
+
+    if weather == "blizzard":
+        weather_mod = 0
+    elif weather == "hot":
+        weather_mod = .5
+    elif weather == "rain":
+        weather_mod = .25
+    elif weather == "comftorable":
+        weather_mod = 1
+
+    miles = hours * mph * weather_mod
+    random_mod = random.randint(0,5)
+    return miles - random_mod
+
+miles = travel(health, pace, weather)
+
+  
 #game starts
 Opening()   
 menu()       

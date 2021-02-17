@@ -11,22 +11,25 @@ class App(Frame):
     def __init__(self,master):
         super(App, self).__init__(master)
         self.grid()
+        self.op = ""
+        self.op1 = None
+        self.op2 = None
         self.screen = "0"
         self.create_widgets()
 
     def create_widgets(self):
 
         self.output = Label(self,width=50,height = 3, bg="black",fg="green", text=self.screen)
-        self.output.grid(row=0, column=0, sticky=W)
+        self.output.grid(row=0, column=0, sticky=W, columnspan=4)
 
         #side buttons
-        self.bttnclear = Button(self,text="Clear",width = 50, height = 3,command = self.bttnpressclear)
-        self.bttndiv = Button(self,text="÷",width = 10, height = 3)
-        self.bttntime = Button(self,text="x",width = 10, height = 3)
-        self.bttnsub = Button(self,text="--",width = 10, height = 3)
-        self.bttnequals = Button(self,text="=",width = 10, height = 3)
+        self.bttnclear = Button(self,text="Clear",width = 48,height = 3,command = self.bttnpressclear)
+        self.bttndiv = Button(self,text="÷",width = 10, height = 3,command = self.bttnpressdiv)
+        self.bttntime = Button(self,text="x",width = 10, height = 3,command = self.bttnpresstimes)
+        self.bttnsub = Button(self,text="--",width = 10, height = 3,command = self.bttnpresssub)
+        self.bttnequals = Button(self,text="=",width = 10, height = 3,command=self.bttnpressuqual)
 
-        self.bttnclear.grid(row=1, column=0, sticky=W)
+        self.bttnclear.grid(row=1, column=0, sticky=W, columnspan=4)
         self.bttndiv.grid(row=2, column=3, sticky=W)
         self.bttntime.grid(row=3, column=3, sticky=W)
         self.bttnsub.grid(row=4, column=3, sticky=W)
@@ -46,7 +49,7 @@ class App(Frame):
         self.bttn7 = Button(self,text = "7",width = 10, height = 3,command = self.bttnpress7)
         self.bttn8 = Button(self,text = "8",width = 10, height = 3,command = self.bttnpress8)
         self.bttn9 = Button(self,text = "9",width = 10, height = 3,command = self.bttnpress9)
-        self.bttn_plusMinus = Button(self,text="±", width=10, height=3,command = self.bttnpress_plusMinus)
+        self.bttn_plus = Button(self,text="+", width=10, height=3,command = self.bttnpress_plus)
         self.bttn_dot = Button(self,text=".", width=10, height=3,command = self.bttnpress_dot)
         #grid numbers part
         self.bttn0.grid(row=5, column=1, sticky=W)
@@ -59,7 +62,7 @@ class App(Frame):
         self.bttn7.grid(row = 2, column = 0, sticky = W)
         self.bttn8.grid(row = 2, column = 1, sticky = W)
         self.bttn9.grid(row = 2, column = 2, sticky = W)
-        self.bttn_plusMinus.grid(row=5, column=0, sticky=W)
+        self.bttn_plus.grid(row=5, column=0, sticky=W)
         self.bttn_dot.grid(row = 5, column = 2, sticky = W)
     def bttnpress0(self):
         if self.screen == "0":
@@ -122,41 +125,40 @@ class App(Frame):
             self.screen += "9"
         self.output.config(text=self.screen)
 
-    def bttnpress_plusMinus(self):
-        if self.screen == "0":
-            self.screen = "1"
-        else:
-            self.screen += "1"
+    def bttnpress_plus(self):
+        self.op = "+"
+        self.op1 = int(self.screen)
+        self.screen = "0"
         self.output.config(text=self.screen)
+
     def bttnpress_dot(self):
-        if self.screen == "0":
-            self.screen = "1"
-        else:
-            self.screen += "1"
-        self.output.config(text=self.screen)
+        pass
     def bttnpressdiv(self):
-        if self.screen == "0":
-            self.screen = "1"
-        else:
-            self.screen += "1"
+        self.op = "/"
+        self.op1 = int(self.screen)
+        self.screen = "0"
         self.output.config(text=self.screen)
     def bttnpresstimes(self):
-        if self.screen == "0":
-            self.screen = "1"
-        else:
-            self.screen += "1"
+        self.op = "*"
+        self.op1 = int(self.screen)
+        self.screen = "0"
         self.output.config(text=self.screen)
     def bttnpresssub(self):
-        if self.screen == "0":
-            self.screen = "1"
-        else:
-            self.screen += "1"
+        self.op = "-"
+        self.op1 = int(self.screen)
+        self.screen = "0"
         self.output.config(text=self.screen)
     def bttnpressuqual(self):
-        if self.screen == "0":
-            self.screen = "1"
-        else:
-            self.screen += "1"
+        self.op2 = int(self.screen)
+        if self.op == "+":
+            answer = self.op1+self.op2
+        if self.op == "-":
+            answer = self.op1-self.op2
+        if self.op == "*":
+            answer = self.op1*self.op2
+        if self.op == "/":
+            answer = self.op1/self.op2
+        self.screen = str(answer)
         self.output.config(text=self.screen)
     def bttnpressclear(self):
         self.screen="0"

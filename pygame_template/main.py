@@ -1,8 +1,12 @@
 import pygame as pg
 import random
 import math
+import os
 #from colors import *
 
+game_folder = os.path.dirname(__file__)
+img_folder = os.path.join(game_folder,"imgs")
+player_imgs = os.path.join(img_folder,"playerimgs")
 
 class Player(pg.sprite.Sprite):
     def __init__(self):
@@ -12,11 +16,72 @@ class Player(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         #self.rect.bottomright = (0,0)
         self.rect.center = (WIDTH/2,HEIGHT/2)
-        self.speedx = 5
-        self.speedy = 5
+        self.speedx = 0
+        self.speedy = 0
+        self.keypressed = False
+
+    def toggle_pressed(self):
+        self.keypressed = False
 
     def update(self):
-        pass
+
+        #mouse move
+        # self.rect.center = (mousex,mousey)
+        self.rect.centerx = (mousex)
+
+
+        # #Grid move
+        # keystate = pg.key.get_pressed()
+        # if keystate[pg.k_LEFT] and self.keypressed == False:
+        #     self.keypressed = True
+        #     self.rect.centerx += -50
+        # if keystate[pg.k_RIGHT] and self.keypressed == False:
+        #     self.keypressed = True
+        #     self.rect.centerx += 50
+        # if keystate[pg.k_UP] and self.keypressed == False:
+        #     self.keypressed = True
+        #     self.rect.centery += -50
+        # if keystate[pg.k_DOWN] and self.keypressed == False:
+        #     self.keypressed = True
+        #     self.rect.centery += 50
+
+
+
+
+
+        #basic move
+        # self.speedx = 0
+        # self.speedy = 0
+        # keystate = pg.key.get_pressed()
+        #
+        # if keystate[pg.K_LEFT] or keystate[pg.K_A]:
+        #     self.speedx += -5
+        # if keystate[pg.K_RIGHT] or keystate[pg.K_D]:
+        #     self.speedx += 5
+        # if keystate[pg.K_UP] or keystate[pg.K_W]:
+        #     self.speedy += -5
+        # if keystate[pg.K_DOWN] or keystate[pg.K_S]:
+        #     self.speedy += 5
+
+
+
+
+        self.rect.x += self.speedx
+        self.rect.y += self.speedy
+
+
+
+
+        #bind player to screen
+        if self.rect.left<=0:
+            self.rect.left=0
+        if self.rect.top<=0:
+            self.rect.top=0
+        if self.rect.bottom<HEIGHT:
+            self.rect.bottom=HEIGHT
+        if self.rect.right<=WIDTH:
+            self.rect.right=WIDTH
+
 
 
 class NPC(pg.sprite.Sprite):
@@ -115,7 +180,13 @@ class NPC(pg.sprite.Sprite):
         #     # self.rect.top=HEIGHT
 
 
-
+def spawn_player(x,y):
+    newplayer = Player()
+    newplayer.rect.center = (x,y)
+    newplayer.speedx = random.randint(-10,10)
+    newplayer.speedy = random.randint(-10, 10)
+    all_Sprites.add(newplayer)
+    players_group.add(newplayer)
 
 WIDTH = 360
 HEIGHT = 480
@@ -135,6 +206,8 @@ ORANGE = (255,165,0)
 GOLD = (255,215,0)
 BBPINK = (255,182,193)
 YELLOW = (255,255,0)
+
+mouse_bttm_held = False
 
 
 
@@ -167,16 +240,47 @@ while running:
     #process input
     #get list of events
 
+    mousex,mousey = pg.mouse.get_pos()
+
+
     for event in pg.event.get():
-        if event.type == pg.KEYDOWN:
-            if event.key == pg.k_LEFT:
-                player.speedx = -5
-            if event.key == pg.k_RIGHT:
-                player.speedx = 5
-            if event.key == pg.k_UP:
-                player.speedy = -5
-            if event.key == pg.k_DOWN:
-                player.speedy = 5
+
+        if event.type == pg.KEYUP:
+            if event.key == pg.K_LEFT or event.key == pg.K_RIGHT:
+                player.toggle_pressed()
+            if event.key == pg.K_UP or event.key == pg.K_DOWN:
+                player.toggle_pressed()
+        if event.type == pg.MOUSEBUTTONDOWN and player.rect.collidepoint(pg.mouse.getpos()):
+            x=pg.mouse.get_pressed()
+            if x[0]:
+                print("clicked left button")
+                mouse_buttn_held = True
+            if x[1]:
+                print("clicked wheel")
+            if x[2]:
+                spawn_player(mousex.mousey)
+                print("clicked right button")
+            print("clicked on player")
+
+        if event.type == pg.MOUSEBUTTONUP:
+            x = pg.mouse.get_pressed()
+            if x!=[0]:
+                print("clicked left button")
+                mouse_buttn_held = False
+            if x!=[1]:
+                print("clicked wheel")
+            if x!=[2]:
+                print("clicked right button")
+
+        # if event.type == pg.KEYDOWN:
+        #     if event.key == pg.k_LEFT:
+        #         player.speedx = -5
+        #     if event.key == pg.k_RIGHT:
+        #         player.speedx = 5
+        #     if event.key == pg.k_UP:
+        #         player.speedy = -5
+        #     if event.key == pg.k_DOWN:
+        #         player.speedy = 5
 
 
 
